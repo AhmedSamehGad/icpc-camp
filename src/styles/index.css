@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* ===== Custom Styles ===== */
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #05050A;
+}
+::-webkit-scrollbar-thumb {
+  background: #EAB308;
+  border-radius: 3px;
+}
+
+/* Typing cursor blink */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+.animate-blink {
+  animation: blink 0.8s infinite;
+}
+
+/* Gradient texts */
+.gradient-text {
+  background: linear-gradient(135deg, #fff 0%, #EAB308 50%, #FDE047 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.gradient-text-gold {
+  background: linear-gradient(135deg, #FDE047 0%, #EAB308 50%, #CA8A04 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow cards */
+.glow-card {
+  background: #0A0A10;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glow-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(234, 179, 8, 0.2);
+  box-shadow: 0 20px 40px -15px rgba(234, 179, 8, 0.12);
+}
+
+/* Reveal animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Section divider */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(234, 179, 8, 0.15), transparent);
+  margin-bottom: 2rem;
+}
+
+/* Journey nodes */
+.journey-node {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  z-index: 2;
+  flex-shrink: 0;
+  transition: all 0.3s;
+}
+@media (min-width: 640px) {
+  .journey-node {
+    width: 56px;
+    height: 56px;
+    font-size: 22px;
+  }
+}
+.journey-done {
+  background: #EAB308;
+  color: #05050A;
+  box-shadow: 0 0 15px rgba(234, 179, 8, 0.3);
+}
+.journey-current {
+  background: #0A0A10;
+  border: 2px solid #EAB308;
+  color: #EAB308;
+  animation: pg 2s infinite;
+}
+.journey-locked {
+  background: #18181F;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: #3F3F46;
+}
+@keyframes pg {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(234, 179, 8, 0); }
+}
+
+.journey-line {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  position: relative;
+  border-radius: 2px;
+}
+.journey-line .fill {
+  position: absolute;
+  inset: 0;
+  background: #EAB308;
+  border-radius: 2px;
+  width: 100%;
+}
+.journey-line.locked .fill {
+  width: 0;
+}
+
+/* Rank cards */
+.rank-card {
+  border-radius: 16px;
+  padding: 20px;
+  transition: all 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+.rank-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.2), transparent, rgba(234, 179, 8, 0.1));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.rank-card:hover {
+  transform: translateX(-4px);
+}
