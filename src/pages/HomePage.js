@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom'; // <-- import Link for routing
 
 const HomePage = () => {
   // ---------- state ----------
@@ -395,7 +396,7 @@ const HomePage = () => {
         .hero-content>*:nth-child(4) { animation-delay: .8s; }
         @keyframes hi { to { opacity: 1; transform: translateY(0); } }
         .section-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(234, 179, 8, .15), transparent); }
-        .rank-card { border-radius: 16px; padding: 20px; transition: all .4s; position: relative; overflow: hidden; }
+        .rank-card { borderRadius: '16px', padding: '20px', transition: 'all .4s', position: 'relative', overflow: 'hidden' }
         .rank-card::before { content: ''; position: absolute; inset: 0; border-radius: 16px; padding: 1px; background: linear-gradient(135deg, rgba(234, 179, 8, .2), transparent, rgba(234, 179, 8, .1)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
         .rank-card:hover { transform: translateX(-4px); }
         .resource-icon { transition: all .3s; }
@@ -446,10 +447,11 @@ const HomePage = () => {
               <a href="#leaderboard" className="nav-link text-sm text-gray-400 hover:text-white transition-colors">المتصدرين</a>
               <a href="#gamification" className="nav-link text-sm text-gray-400 hover:text-white transition-colors">التقييم</a>
               <a href="#resources" className="nav-link text-sm text-gray-400 hover:text-white transition-colors">الموارد</a>
-              <a href="online-compiler.html" className="nav-link text-sm text-gold-400 hover:text-gold-300 transition-colors font-semibold flex items-center gap-1.5">
+              {/* Compiler link - using React Router Link */}
+              <Link to="/compiler" className="nav-link text-sm text-gold-400 hover:text-gold-300 transition-colors font-semibold flex items-center gap-1.5">
                 <iconify-icon icon="lucide:code-2" className="text-base"></iconify-icon>
                 المترجم
-              </a>
+              </Link>
             </div>
 
             {/* Mobile Toggle */}
@@ -476,10 +478,11 @@ const HomePage = () => {
           <a href="#leaderboard" className="mobile-nav-link text-2xl font-bold text-gray-300 hover:text-gold-500 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>المتصدرين</a>
           <a href="#gamification" className="mobile-nav-link text-2xl font-bold text-gray-300 hover:text-gold-500 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>التقييم</a>
           <a href="#resources" className="mobile-nav-link text-2xl font-bold text-gray-300 hover:text-gold-500 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>الموارد</a>
-          <a href="online-compiler.html" className="mobile-nav-link text-2xl font-bold text-gold-400 hover:text-gold-300 transition-colors flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
+          {/* Compiler link for mobile - using React Router Link */}
+          <Link to="/compiler" className="mobile-nav-link text-2xl font-bold text-gold-400 hover:text-gold-300 transition-colors flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
             <iconify-icon icon="lucide:code-2"></iconify-icon>
             المترجم
-          </a>
+          </Link>
         </div>
       </div>
 
