@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/icpc-camp/static/css/main.48c6016e.css",
+    "main.js": "/icpc-camp/static/js/main.afb74a10.js",
+    "index.html": "/icpc-camp/index.html",
+    "main.48c6016e.css.map": "/icpc-camp/static/css/main.48c6016e.css.map",
+    "main.afb74a10.js.map": "/icpc-camp/static/js/main.afb74a10.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.48c6016e.css",
+    "static/js/main.afb74a10.js"
+  ]
+}
