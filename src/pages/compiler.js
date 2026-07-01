@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
 
 const CppCompiler = () => {
@@ -8,6 +8,17 @@ const CppCompiler = () => {
     const [programInput, setProgramInput] = useState('');
     const [output, setOutput] = useState('');
     const [isRunning, setIsRunning] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Detect mobile screen
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     const handleCompileAndRun = async () => {
         setIsRunning(true);
@@ -46,9 +57,17 @@ const CppCompiler = () => {
         }
     };
 
+    // Dynamic styles based on screen size
+    const containerPadding = isMobile ? '16px' : '28px 32px 20px';
+    const titleFontSize = isMobile ? '20px' : '26px';
+    const gridTemplateColumns = isMobile ? '1fr' : '1fr 1fr';
+    const editorHeight = isMobile ? '40vh' : '55vh';
+    const outputMaxHeight = isMobile ? 'calc(40vh - 80px)' : 'calc(55vh - 120px)';
+    const panelGap = isMobile ? '16px' : '12px';
+
     return (
         <div style={styles.pageWrapper}>
-            {/* Global styles for animations */}
+            {/* Global styles for animations and scrollbar */}
             <style dangerouslySetInnerHTML={{
                 __html: `
                     @keyframes pulse {
@@ -75,10 +94,46 @@ const CppCompiler = () => {
                     ::-webkit-scrollbar-thumb:hover {
                         background: #CA8A04;
                     }
+                    /* Responsive adjustments via class overrides */
+                    .compiler-container {
+                        padding: ${containerPadding} !important;
+                    }
+                    .compiler-title {
+                        font-size: ${titleFontSize} !important;
+                    }
+                    .compiler-grid {
+                        grid-template-columns: ${gridTemplateColumns} !important;
+                        gap: ${isMobile ? '16px' : '20px'} !important;
+                    }
+                    .compiler-editor {
+                        height: ${editorHeight} !important;
+                    }
+                    .compiler-output {
+                        max-height: ${outputMaxHeight} !important;
+                        min-height: ${isMobile ? '120px' : '200px'} !important;
+                    }
+                    .compiler-panel {
+                        gap: ${panelGap} !important;
+                    }
+                    .compiler-btn {
+                        font-size: ${isMobile ? '14px' : '15px'} !important;
+                        padding: ${isMobile ? '10px 20px' : '12px 28px'} !important;
+                    }
+                    .compiler-textarea {
+                        font-size: ${isMobile ? '12px' : '13px'} !important;
+                        padding: ${isMobile ? '10px 12px' : '12px 14px'} !important;
+                    }
+                    .compiler-output-text {
+                        font-size: ${isMobile ? '12px' : '13px'} !important;
+                        padding: ${isMobile ? '10px 12px' : '14px 16px'} !important;
+                    }
+                    .compiler-header-right {
+                        ${isMobile ? 'display: none !important;' : ''}
+                    }
                 `
             }} />
 
-            <div style={styles.container}>
+            <div style={{...styles.container, padding: containerPadding}} className="compiler-container">
                 {/* Header */}
                 <div style={styles.header}>
                     <div style={styles.headerLeft}>
@@ -88,7 +143,7 @@ const CppCompiler = () => {
                             <div style={styles.logoSub}>SUMMER CAMP</div>
                         </div>
                     </div>
-                    <div style={styles.headerRight}>
+                    <div style={styles.headerRight} className="compiler-header-right">
                         <span style={styles.statusDot}>●</span>
                         <span style={styles.statusText}>Production Sandbox Active</span>
                     </div>
@@ -96,29 +151,29 @@ const CppCompiler = () => {
 
                 {/* Title */}
                 <div style={styles.titleWrapper}>
-                    <h2 style={styles.title}>
+                    <h2 style={{...styles.title, fontSize: titleFontSize}} className="compiler-title">
                         <span style={styles.titleIcon}>⚡</span> Code Runner
                     </h2>
                     <p style={styles.subtitle}>Compile & execute C++ code with Wandbox high-performance engine</p>
                 </div>
 
                 {/* Main Grid */}
-                <div style={styles.grid}>
+                <div style={{...styles.grid, gridTemplateColumns: gridTemplateColumns}} className="compiler-grid">
                     {/* Editor Panel */}
-                    <div style={styles.panel}>
+                    <div style={{...styles.panel, gap: panelGap}} className="compiler-panel">
                         <div style={styles.panelLabel}>
                             <span style={styles.panelIcon}>⌨️</span> Editor
                             <span style={styles.langBadge}>C++</span>
                         </div>
                         <div style={styles.editorWrapper}>
                             <Editor
-                                height="55vh"
+                                height={editorHeight}
                                 defaultLanguage="cpp"
                                 theme="vs-dark"
                                 value={code}
                                 onChange={(val) => setCode(val || '')}
                                 options={{
-                                    fontSize: 14,
+                                    fontSize: isMobile ? 12 : 14,
                                     minimap: { enabled: false },
                                     automaticLayout: true,
                                     fontFamily: "'JetBrains Mono', 'Consolas', monospace",
@@ -136,6 +191,7 @@ const CppCompiler = () => {
                                 ...styles.runButton,
                                 ...(isRunning ? styles.runButtonDisabled : {}),
                             }}
+                            className="compiler-btn"
                         >
                             {isRunning ? (
                                 <>
@@ -150,15 +206,16 @@ const CppCompiler = () => {
                     </div>
 
                     {/* IO Panel */}
-                    <div style={styles.panel}>
+                    <div style={{...styles.panel, gap: panelGap}} className="compiler-panel">
                         {/* Stdin */}
                         <div style={styles.ioSection}>
                             <div style={styles.panelLabel}>
                                 <span style={styles.panelIcon}>📥</span> Standard Input (stdin)
                             </div>
                             <textarea
-                                rows={3}
+                                rows={isMobile ? 2 : 3}
                                 style={styles.textarea}
+                                className="compiler-textarea"
                                 placeholder="Provide testcase inputs for cin streams here..."
                                 value={programInput}
                                 onChange={(e) => setProgramInput(e.target.value)}
@@ -176,7 +233,7 @@ const CppCompiler = () => {
                                 )}
                             </div>
                             <div style={styles.outputWrapper}>
-                                <div style={styles.output}>
+                                <div style={styles.output} className="compiler-output-text compiler-output">
                                     {output || '📄 Output terminal idle.'}
                                 </div>
                             </div>
@@ -198,12 +255,12 @@ const CppCompiler = () => {
     );
 };
 
-// ===== STYLES (fixed missing commas) =====
+// ===== STYLES =====
 const styles = {
     pageWrapper: {
         minHeight: '100vh',
         backgroundColor: '#05050A',
-        padding: '24px',
+        padding: '16px',
         fontFamily: "'Cairo', 'JetBrains Mono', 'Consolas', sans-serif",
         display: 'flex',
         alignItems: 'center',
@@ -215,7 +272,6 @@ const styles = {
         backgroundColor: '#0A0A10',
         borderRadius: '20px',
         border: '1px solid rgba(255, 255, 255, 0.06)',
-        padding: '28px 32px 20px',
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(234, 179, 8, 0.05)',
     },
     header: {
@@ -283,7 +339,6 @@ const styles = {
         marginBottom: '22px',
     },
     title: {
-        fontSize: '26px',
         fontWeight: 800,
         background: 'linear-gradient(135deg, #FDE047 0%, #EAB308 50%, #CA8A04 100%)',
         WebkitBackgroundClip: 'text',
@@ -306,13 +361,11 @@ const styles = {
     },
     grid: {
         display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
         gap: '20px',
     },
     panel: {
         display: 'flex',
         flexDirection: 'column',
-        gap: '12px',
     },
     panelLabel: {
         display: 'flex',
@@ -344,13 +397,11 @@ const styles = {
         boxShadow: 'inset 0 2px 8px rgba(0, 0, 0, 0.4)',
     },
     runButton: {
-        padding: '12px 28px',
         backgroundColor: '#EAB308',
         color: '#05050A',
         border: 'none',
         borderRadius: '10px',
         cursor: 'pointer',
-        fontSize: '15px',
         fontWeight: 700,
         transition: 'all 0.2s ease',
         boxShadow: '0 4px 16px rgba(234, 179, 8, 0.25)',
@@ -383,10 +434,8 @@ const styles = {
     },
     textarea: {
         width: '100%',
-        padding: '12px 14px',
         boxSizing: 'border-box',
         fontFamily: "'JetBrains Mono', 'Consolas', monospace",
-        fontSize: '13px',
         borderRadius: '10px',
         border: '1px solid rgba(255, 255, 255, 0.06)',
         backgroundColor: '#0E0E16',
@@ -405,16 +454,13 @@ const styles = {
         minHeight: '200px',
     },
     output: {
-        padding: '14px 16px',
         fontFamily: "'JetBrains Mono', 'Consolas', monospace",
-        fontSize: '13px',
         color: '#D4D4D4',
         whiteSpace: 'pre-wrap',
         lineHeight: '1.7',
-        minHeight: '200px',
-        maxHeight: 'calc(55vh - 120px)',
         overflowY: 'auto',
         backgroundColor: '#0E0E16',
+        margin: 0,
     },
     clearBtn: {
         marginLeft: 'auto',

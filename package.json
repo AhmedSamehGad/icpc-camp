@@ -2,7 +2,7 @@
   "name": "icpc-camp",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://AhmedSamehGad.github.io/icpc-camp",
+  "homepage": "http://OTU-Community.github.io/icpc-camp",
   "dependencies": {
     "@chriskoch/cpp-wasm": "^1.0.2",
     "@iconify/react": "^6.0.2",
@@ -11,6 +11,7 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^13.5.0",
+    "framer-motion": "^12.42.2",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-router-dom": "^7.18.1",
