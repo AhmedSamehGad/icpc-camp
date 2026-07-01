@@ -1,7 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// Changed BrowserRouter to HashRouter
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import CppCompiler from './pages/compiler'; // Assumes CppCompiler is in your src root folder
+import CppCompiler from './pages/compiler'; 
 
 function App() {
   return (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Link } from 'react-router-dom'; // <-- import Link for routing
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   // ---------- state ----------
@@ -10,7 +10,6 @@ const HomePage = () => {
   const [navbarBg, setNavbarBg] = useState(false);
   const [accordionOpen, setAccordionOpen] = useState({});
   const [typingText, setTypingText] = useState('');
-  const [statCounters, setStatCounters] = useState({});
 
   // refs
   const canvasRef = useRef(null);
@@ -396,7 +395,7 @@ const HomePage = () => {
         .hero-content>*:nth-child(4) { animation-delay: .8s; }
         @keyframes hi { to { opacity: 1; transform: translateY(0); } }
         .section-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(234, 179, 8, .15), transparent); }
-        .rank-card { borderRadius: '16px', padding: '20px', transition: 'all .4s', position: 'relative', overflow: 'hidden' }
+        .rank-card { border-radius: 16px; padding: 20px; transition: all .4s; position: relative; overflow: hidden; }
         .rank-card::before { content: ''; position: absolute; inset: 0; border-radius: 16px; padding: 1px; background: linear-gradient(135deg, rgba(234, 179, 8, .2), transparent, rgba(234, 179, 8, .1)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
         .rank-card:hover { transform: translateX(-4px); }
         .resource-icon { transition: all .3s; }
@@ -726,17 +725,33 @@ const HomePage = () => {
           </div>
           <div className="grid grid-cols-2 gap-4 sm:gap-6">
             {[
-              { name: 'حسام محمود', img: 'hossam-mahmoud.png', linkedin: 'https://www.linkedin.com/in/hosam-mahmoud-452583322?utm_source=share_via&utm_content=profile&utm_medium=member_android' },
-              { name: 'أحمد سامح', img: 'ahmed-sameh-osama.png', linkedin: 'https://www.linkedin.com/in/ahmed-gad-b798033a1?utm_source=share_via&utm_content=profile&utm_medium=member_android' },
-              { name: 'ندى صفوت', img: 'nada-mohamed-safwat.png', linkedin: 'https://www.linkedin.com/in/nada-mohammad-safwat-482201260?utm_source=share_via&utm_content=profile&utm_medium=member_android' },
-              { name: 'ادم محمد', img: 'adam-mohamed-mahmoud.png', linkedin: 'https://www.linkedin.com/in/adam-mohamed-91450b192?utm_source=share_via&utm_content=profile&utm_medium=member_android' }
+              { 
+                name: 'حسام محمود', 
+                img: `${process.env.PUBLIC_URL}/images/hossam-mahmoud.png`, 
+                linkedin: 'https://www.linkedin.com/in/hosam-mahmoud-452583322?utm_source=share_via&utm_content=profile&utm_medium=member_android' 
+              },
+              { 
+                name: 'أحمد سامح', 
+                img: `${process.env.PUBLIC_URL}/images/ahmed-sameh-osama.png`, 
+                linkedin: 'https://www.linkedin.com/in/ahmed-gad-b798033a1?utm_source=share_via&utm_content=profile&utm_medium=member_android' 
+              },
+              { 
+                name: 'ندى صفوت', 
+                img: `${process.env.PUBLIC_URL}/images/nada-mohamed-safwat.png`, 
+                linkedin: 'https://www.linkedin.com/in/nada-mohammad-safwat-482201260?utm_source=share_via&utm_content=profile&utm_medium=member_android' 
+              },
+              { 
+                name: 'ادم محمد', 
+                img: `${process.env.PUBLIC_URL}/images/adam-mohamed-mahmoud.png`, 
+                linkedin: 'https://www.linkedin.com/in/adam-mohamed-91450b192?utm_source=share_via&utm_content=profile&utm_medium=member_android' 
+              }
             ].map((mentor, idx) => (
               <div key={idx} className={`glow-card p-5 sm:p-6 text-center reveal reveal-d${idx+1} group`}>
                 <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full mx-auto mb-4 bg-dark-700 border-2 border-gold-500/15 flex items-center justify-center group-hover:border-gold-500/40 transition-colors overflow-hidden">
-                  <img src={mentor.img} alt="" className="w-full h-full object-cover" />
+                  <img src={mentor.img} alt={mentor.name} className="w-full h-full object-cover" />
                 </div>
                 <h4 className="font-bold text-sm sm:text-base">{mentor.name}</h4>
-                <a href={mentor.linkedin} target="_blank" rel="noopener" className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-gold-500 transition-colors">
+                <a href={mentor.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-gold-500 transition-colors">
                   <iconify-icon icon="lucide:linkedin" className="text-sm"></iconify-icon>LinkedIn
                 </a>
               </div>
@@ -1009,4 +1024,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default HomePage;  
