@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/icpc-camp/static/css/main.113e7737.css",
-    "main.js": "/icpc-camp/static/js/main.73e6629c.js",
+    "main.css": "/icpc-camp/static/css/main.eb2b1f63.css",
+    "main.js": "/icpc-camp/static/js/main.f4f0c3dd.js",
     "index.html": "/icpc-camp/index.html",
-    "main.113e7737.css.map": "/icpc-camp/static/css/main.113e7737.css.map",
-    "main.73e6629c.js.map": "/icpc-camp/static/js/main.73e6629c.js.map"
+    "main.eb2b1f63.css.map": "/icpc-camp/static/css/main.eb2b1f63.css.map",
+    "main.f4f0c3dd.js.map": "/icpc-camp/static/js/main.f4f0c3dd.js.map"
   },
   "entrypoints": [
-    "static/css/main.113e7737.css",
-    "static/js/main.73e6629c.js"
+    "static/css/main.eb2b1f63.css",
+    "static/js/main.f4f0c3dd.js"
   ]
 }
